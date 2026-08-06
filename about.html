@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>About Us | Life Care Hospital</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <script src="https://www.gstatic.com/firebasejs/10.14.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.14.0/firebase-firestore-compat.js"></script>
+    <link rel="stylesheet" href="styles.css" />
+    <script src="main.js"></script>
+</head>
+
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <span class="logo-icon"><IMg src="2.TIFT.png"></IMg></span>
+                <span class="logo-text">Life Care Hospital</span>
+            </a>
+            <button class="menu-toggle" onclick="toggleMenu()" aria-label="Toggle menu">☰</button>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="services.html">Services</a></li>
+                <li><a href="pharmacy.html">Pharmacy</a></li>
+                <li><a href="ambulance.html">Ambulance</a></li>
+                <li><a href="doctors.html">Our Doctors</a></li>
+                <li><a href="about.html" class="active">About</a></li>
+                <li><a href="contact.html">Contact</a></li>
+                <li><a href="appointment.html" class="btn-book">Book Appointment</a></li>
+                <li><button class="theme-toggle" id="themeToggle" onclick="toggleTheme()" title="Toggle dark mode">🌙</button></li>
+            </ul>
+        </div>
+    </nav>
+
+
+    <div class="page ">
+        <h1 class="section-title ">About Life Care Hospital</h1>
+        <p class="section-subtitle ">Two decades of trusted healthcare excellence</p>
+
+        <div class="card about-intro " style="margin-bottom: 2.5rem; ">
+            <p>Founded in 2005, <strong>Life Care Hospital</strong> has grown into a leading multi-specialty healthcare institution dedicated to delivering high-quality, affordable, and compassionate medical care. Our mission is simple: put the patient first
+                in everything we do.</p>
+            <p style="margin-top: 1rem; ">With over 150 specialist doctors, modern infrastructure, and a culture of continuous improvement, we serve thousands of patients every year across emergency, inpatient, outpatient, and preventive care.</p>
+        </div>
+
+        <div class="grid grid-3 " style="margin-bottom: 2.5rem; ">
+            <div class="card ">
+                <h3>🎯 Our Mission</h3>
+                <p>To provide accessible, ethical, and advanced healthcare that improves the quality of life for every patient and their family.</p>
+            </div>
+            <div class="card ">
+                <h3>👁️ Our Vision</h3>
+                <p>To be the most trusted healthcare destination known for clinical excellence, innovation, and human-centered care.</p>
+            </div>
+            <div class="card ">
+                <h3>💎 Our Values</h3>
+                <p>Compassion • Integrity • Excellence • Teamwork • Accountability</p>
+            </div>
+        </div>
+
+        <h2 class="section-title " style="font-size: 1.5rem; ">Hospital Highlights</h2>
+        <div class="grid grid-2 " style="margin-top: 1.5rem; ">
+            <div class="card ">
+                <ul class="feature-list ">
+                    <li>✅ 250+ bed multi-specialty facility</li>
+                    <li>✅ 24/7 Emergency & Trauma Center</li>
+                    <li>✅ Advanced ICU, NICU & PICU</li>
+                    <li>✅ Fully equipped Operation Theatres</li>
+                    <li>✅ NABL accredited laboratory</li>
+                </ul>
+            </div>
+            <div class="card ">
+                <ul class="feature-list ">
+                    <li>✅ In-house Pharmacy with home delivery</li>
+                    <li>✅ ALS & BLS Ambulance fleet</li>
+                    <li>✅ Digital health records</li>
+                    <li>✅ Cashless insurance tie-ups</li>
+                    <li>✅ Patient-friendly infrastructure</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer ">
+        <div class="footer-content ">
+            <div class="footer-grid ">
+                <div class="footer-col ">
+                    <h3>🏥 Life Care Hospital</h3>
+                    <p>Providing compassionate, advanced healthcare services with a patient-first approach since 2005.
+                    </p>
+                </div>
+                <div class="footer-col ">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="services.html ">Services</a></li>
+                        <li><a href="pharmacy.html ">Pharmacy</a></li>
+                        <li><a href="ambulance.html ">Ambulance</a></li>
+                        <li><a href="appointment.html ">Book Appointment</a></li>
+                        <li><a href="about.html ">About Us</a></li>
+                        <li><a href="contact.html ">Contact</a></li>
+                    </ul>
+                </div>
+                <script src="main.js"></script>

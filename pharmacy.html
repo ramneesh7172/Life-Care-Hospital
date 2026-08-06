@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pharmacy | Life Care Hospital</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+    <script src="https://www.gstatic.com/firebasejs/10.14.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.14.0/firebase-firestore-compat.js"></script>
+    <link rel="stylesheet" href="styles.css" />
+    <script src="main.js"></script>
+</head>
+
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo"><span class="logo-icon"><IMg src="2.TIFT.png"></IMg></span><span class="logo-text">Life Care Hospital</span></a>
+            <button class="menu-toggle" onclick="toggleMenu()" aria-label="Toggle menu">☰</button>
+            <ul class="nav-links" id="navLinks">
+
+                <li><a href="index.html">Home</a></li>
+                <li><a href="services.html">Services</a></li>
+                <li><a href="pharmacy.html" class="active">Pharmacy</a></li>
+                <li><a href="ambulance.html">Ambulance</a></li>
+                <li><a href="doctors.html ">Our Doctors</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="contact.html">Contact</a></li>
+                <li><a href="appointment.html" class="btn-book">Book Appointment</a></li>
+                <li><button class="theme-toggle" id="themeToggle" onclick="toggleTheme()" title="Toggle dark mode">🌙</button></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="page">
+        <h1 class="section-title">Life Care Pharmacy</h1>
+        <p class="section-subtitle">Genuine medicines • Competitive prices • Home delivery available</p>
+
+        <div class="grid grid-4" style="margin-bottom: 3rem;">
+            <div class="card med-card"><span class="badge badge-blue">Pain Relief</span>
+                <h3>Paracetamol 500mg</h3>
+                <p class="price">₹25</p>
+            </div>
+            <div class="card med-card"><span class="badge badge-blue">Antibiotic</span>
+                <h3>Amoxicillin 500mg</h3>
+                <p class="price">₹80</p>
+            </div>
+            <div class="card med-card"><span class="badge badge-blue">Gastric</span>
+                <h3>Omeprazole 20mg</h3>
+                <p class="price">₹45</p>
+            </div>
+            <div class="card med-card"><span class="badge badge-blue">Supplement</span>
+                <h3>Vitamin D3 60K</h3>
+                <p class="price">₹120</p>
+            </div>
+            <div class="card med-card"><span class="badge badge-blue">Pain Relief</span>
+                <h3>Crocin Advance</h3>
+                <p class="price">₹30</p>
+            </div>
+            <div class="card med-card"><span class="badge badge-blue">Antibiotic</span>
+                <h3>Azithromycin 500mg</h3>
+                <p class="price">₹95</p>
+            </div>
+            <div class="card med-card"><span class="badge badge-blue">Allergy</span>
+                <h3>Cetirizine 10mg</h3>
+                <p class="price">₹20</p>
+            </div>
+            <div class="card med-card"><span class="badge badge-blue">Diabetes</span>
+                <h3>Metformin 500mg</h3>
+                <p class="price">₹35</p>
+            </div>
+            <div class="card med-card"><span class="badge badge-blue">BP</span>
+                <h3>Amlodipine 5mg</h3>
+                <p class="price">₹40</p>
+            </div>
+            <div class="card med-card"><span class="badge badge-blue">Hydration</span>
+                <h3>ORS Sachets (Box)</h3>
+                <p class="price">₹60</p>
+            </div>
+            <div class="card med-card"><span class="badge badge-blue">Supplement</span>
+                <h3>Calcium + Vit D3</h3>
+                <p class="price">₹150</p>
+            </div>
+            <div class="card med-card"><span class="badge badge-blue">Gastric</span>
+                <h3>Pantoprazole 40mg</h3>
+                <p class="price">₹55</p>
+            </div>
+        </div>
+
+        <div class="card" style="max-width: 560px;">
+            <h2 style="margin-bottom: 1rem;">Order Medicines Online</h2>
+            <form id="pharmacyForm" class="form">
+                <div class="form-group">
+                    <label>Full Name *</label>
+                    <input name="name" required placeholder="Your full name" />
+                </div>
+                <div class="form-group">
+                    <label>Phone Number *</label>
+                    <input name="phone" required placeholder="+91 XXXXX XXXXX" />
+                </div>
+                <div class="form-group">
+                    <label>Address *</label>
+                    <textarea name="address" required placeholder="Your delivery address"></textarea>
+                </div>
+                <div class="form-group">
+                    <label>Medicines Required *</label>
+                    <input name="medicines" required placeholder="List the medicines you want to order">
+                    </input>
+                </div>
+                <button type="submit" class="btn btn-primary">Place Order</button>
+            </form>
+        </div>
+    </div>div>
+    </div>
+    <script src="main.js"></script>

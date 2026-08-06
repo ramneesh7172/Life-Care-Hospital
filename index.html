@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Life Care Hospital | Compassionate Healthcare</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+    <script src="https://www.gstatic.com/firebasejs/10.14.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.14.0/firebase-firestore-compat.js"></script>
+    <link rel="stylesheet" href="styles.css" />
+    <script src="main.js"></script>
+
+</head>
+
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <span class="logo-icon"><IMg src="2.TIFT.png"></IMg></span>
+                <span class="logo-text">Life Care Hospital</span>
+            </a>
+            <button class="menu-toggle" onclick="toggleMenu()" aria-label="Toggle menu">☰</button>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="index.html" class="active">Home</a></li>
+                <li><a href="services.html">Services</a></li>
+                <a class="nav-link dropdown-toggle" href="departments.html" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+
+      departments          </a>
+                <ul class="dropdown-menu" style="background-color:  #0a4d68;">
+                    <li>
+                        <a class="dropdown-item" href="blog.html">Blog</a>
+                    </li>
+                    <li><a class="dropdown-item" href="empanelments.html">Empanelments</a></li>
+                    <li>
+                        <hr class="dropdown-divider">
+                    </li>
+                    <li>
+                        <a class="dropdown-item" href="events.html">Events</a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item" href="faq.html">FAQ</a>
+                    </li>
+                    <li><a class="dropdown-item" href="gallery.html">Gallery</a></li>
+                    <li>
+                        <li><a class="dropdown-item" href="departments.html">Departments</a></li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+                        <li>
+                            <a class="dropdown-item" href="health-packages.html">Health-Packages</Health-Packages>
+                        </a>
+                        </li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+                </ul>
+                <li><a href="pharmacy.html">Pharmacy</a></li>
+                <li><a href="ambulance.html">Ambulance</a></li>
+                <li><a href="doctors.html">Our Doctors</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="appointment.html" class="btn-book">Book Appointment</a></li>
+                <li><button class="theme-toggle" id="themeToggle" onclick="toggleTheme()" title="Toggle dark mode">🌙</button></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero -->
+    <section class="hero">
+        <div class="hero-content">
+            <span class="hero-badge">24/7 Emergency Care Available</span>
+            <h1>Life Care Hospital</h1>
+            <p>Compassionate Care • Advanced Technology • Trusted by Thousands</p>
+            <div class="hero-btns">
+                <a href="appointment.html" class="btn btn-primary">Book Appointment</a>
+                <a href="ambulance.html" class="btn btn-secondary">🚑 Call Ambulance</a>
+                <a href="documents.html" class="btn btn-tertiary">Upload Medical Records</a>
+                <a href="payment.html" class="btn btn-fourth">Make Payment</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats -->
+    <section class=" stats ">
+        <div class="container stats-grid ">
+            <div class="stat ">
+                <h3>20+</h3>
+                <p>Years of Excellence</p>
+            </div>
+            <div class="stat ">
+                <h3>150+</h3>
+                <p>Expert Doctors</p>
+            </div>
+            <div class="stat ">
+                <h3>50k+</h3>
+                <p>Happy Patients</p>
+            </div>
+            <div class="stat ">
+                <h3>24/7</h3>
+                <p>Emergency Support</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Key Services -->
+    <section class="page ">
+        <h2 class="section-title ">Our Key Services</h2>
+        <p class="section-subtitle ">Comprehensive healthcare under one roof</p>
+        <div class="grid grid-4 ">
+            <div class="card service-preview ">
+                <div class="icon ">🚨</div>
+                <h3>Emergency Care</h3>
+                <p>24/7 trauma & critical care with advanced ICU</p>
+                <a href="services.html ">Learn more →</a>
+            </div>
+            <div class="card service-preview ">
+                <div class="icon ">💊</div>
+                <h3>Pharmacy</h3>
+                <p>Genuine medicines with home delivery options</p>
+                <a href="pharmacy.html ">Order now →</a>
+            </div>
+            <div class="card service-preview ">
+                <div class="icon ">🚑</div>
+                <h3>Ambulance</h3>
+                <p>ALS & BLS fleet with trained paramedics</p>
+                <a href="ambulance.html ">Request →</a>
+            </div>
+            <div class="card service-preview ">
+                <div class="icon ">❤️</div>
+                <h3>Multi-Specialty</h3>
+                <p>Cardiology, Neuro, Ortho, Pediatrics & more</p>
+                <a href="services.html ">View all →</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Why Us -->
+    <section class="why-us ">
+        <div class="container ">
+            <h2 class="section-title ">Why Choose Life Care?</h2>
+            <div class="grid grid-3 ">
+                <div class="card ">
+                    <h3>👨‍⚕️ Expert Team</h3>
+                    <p>Highly qualified specialists with years of experience in their fields.</p>
+                </div>
+                <div class="card ">
+                    <h3>🔬 Advanced Technology</h3>
+                    <p>State-of-the-art diagnostic and treatment equipment for accurate care.</p>
+                </div>
+                <div class="card ">
+                    <h3>💙 Patient-Centric</h3>
+                    <p>Personalized treatment plans and compassionate care for every patient.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <script src="main.js "></script>

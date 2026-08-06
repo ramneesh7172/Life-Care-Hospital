@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin Panel | Life Care Hospital</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="admin.css" />
+</head>
+
+<body>
+
+    <!-- ========== LOGIN ========== -->
+    <div id="loginScreen">
+        <div class="login-card">
+            <h1>🏥 Admin Login</h1>
+            <p class="sub">Life Care Hospital — staff access only</p>
+            <form id="loginForm">
+                <label for="username">Username</label>
+                <input type="text" id="username" placeholder="Username" required autocomplete="username" />
+                <label for="password">Password</label>
+                <input type="password" id="password" placeholder="••••••••" required autocomplete="current-password" />
+                <button type="submit">Login</button>
+                <div class="login-error" id="loginError">Invalid username or password.</div>
+            </form>
+            <div class="login-hint">
+                Default: <strong>admin</strong> / <strong>admin123</strong>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========== DASHBOARD ========== -->
+    <div id="dashboard">
+        <div class="topbar">
+            <h1>🏥 Life Care Hospital — Admin</h1>
+            <div class="actions">
+                <button type="button" class="btn btn-green" id="btnAdd" onclick="openAddModal()">+ Add Record</button>
+                <button type="button" class="btn btn-slate" onclick="refreshAll()">↻ Refresh</button>
+                <a href="index.html" class="btn btn-slate" style="text-decoration:none;">← Site</a>
+                <button type="button" class="btn btn-red" onclick="logout()">Logout</button>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="stats">
+                <div class="stat">
+                    <h2 id="cAppt">0</h2>
+                    <p>Appointments</p>
+                </div>
+                <div class="stat">
+                    <h2 id="cAmb">0</h2>
+                    <p>Ambulance</p>
+                </div>
+                <div class="stat">
+                    <h2 id="cPharm">0</h2>
+                    <p>Pharmacy</p>
+                </div>
+                <div class="stat">
+                    <h2 id="cContact">0</h2>
+                    <p>Messages</p>
+                </div>
+                <div class="stat">
+                    <h2 id="cDocs">0</h2>
+                    <p>Documents</p>
+                </div>
+                <div class="stat">
+                    <h2 id="cPay">0</h2>
+                    <p>Payments</p>
+                </div>
+            </div>
+
+            <div class="tabs">
+                <button type="button" class="active" data-tab="appointments" onclick="setTab('appointments')">Appointments</button>
+                <button type="button" data-tab="ambulance" onclick="setTab('ambulance')">Ambulance</button>
+                <button type="button" data-tab="pharmacy" onclick="setTab('pharmacy')">Pharmacy</button>
+                <button type="button" data-tab="contacts" onclick="setTab('contacts')">Contacts</button>
+                <button type="button" data-tab="documents" onclick="setTab('documents')">📄 Documents</button>
+                <button type="button" data-tab="payments" onclick="setTab('payments')">💳 Payments</button>
+            </div>
+
+            <!-- Records tabs -->
+            <div id="recordsPanel" class="active">
+                <div class="toolbar">
+                    <input type="search" id="searchBox" placeholder="Search name, phone, email…" oninput="renderRecords()" />
+                    <button type="button" class="btn btn-slate" onclick="clearTab()">Clear this tab</button>
+                </div>
+                <div class="table-wrap">
+                    <table>
+                        <thead id="thead"></thead>
+                        <tbody id="tbody"></tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Documents tab -->
+            <div id="documentsPanel">
+                <div class="toolbar">
+                    <input type="search" id="docSearch" placeholder="Search patient, phone, ID, notes…" oninput="renderDocuments()" />
+                    <select id="docStatus" onchange="renderDocuments()">
+            <option value="">All statuses</option>
+            <option value="pending">Pending</option>
+            <option value="reviewed">Reviewed</option>
+            <option value="archived">Archived</option>
+          </select>
+                    <select id="docTypeFilter" onchange="renderDocuments()">
+            <option value="">All types</option>
+            <option value="prescription">Prescription</option>
+            <option value="lab-report">Lab Report</option>
+            <option value="radiology">Radiology</option>
+            <option value="discharge">Discharge</option>
+            <option value="id-proof">ID Proof</option>
+            <option value="insurance">Insurance</option>
+            <option value="other">Other</option>
+          </select>
+                    <button type="button" class="btn btn-slate" onclick="clearDocuments()">Clear documents</button>
+                </div>
+                <div class="doc-list" id="docList"></div>
+            </div>
+
+            <!-- Payments tab -->
+            <div id="paymentsPanel">
+                <div class="toolbar">
+                    <input type="search" id="paySearch" placeholder="Search patient, phone, ref, purpose…" oninput="renderPayments()" />
+                    <button type="button" class="btn btn-slate" onclick="clearPayments()">Clear payments</button>
+                </div>
+                <div class="pay-list" id="payList"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add Record Modal -->
+    <div class="modal-bg" id="addModal">
+        <div class="modal">
+            <h2>Add Hospital Record</h2>
+            <form id="addForm">
+                <label for="addType">Type</label>
+                <select id="addType" onchange="updateAddFields()">
+          <option value="appointments">Appointment</option>
+          <option value="ambulance">Ambulance Request</option>
+          <option value="pharmacy">Pharmacy Order</option>
+          <option value="contacts">Contact Message</option>
+        </select>
+                <div id="addFields"></div>
+                <div class="modal-actions">
+                    <button type="button" class="btn btn-slate" onclick="closeAddModal()">Cancel</button>
+                    <button type="submit" class="btn btn-green">Save Record</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Document Detail Modal -->
+    <div class="modal-bg" id="detailModal">
+        <div class="modal">
+            <h2>Document Details</h2>
+            <div id="modalBody"></div>
+            <div class="modal-actions">
+                <button type="button" class="btn btn-slate" onclick="closeDetailModal()">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="admin.js"></script>
+</body>
+
+</html>

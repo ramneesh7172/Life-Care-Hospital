@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Book Appointment | Life Care Hospital</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+    <script src="https://www.gstatic.com/firebasejs/10.14.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.14.0/firebase-firestore-compat.js"></script>
+    <link rel="stylesheet" href="styles.css" />
+    <script src="main.js"></script>
+    <style>
+        .appointment-layout {
+            display: grid;
+            grid-template-columns: 1fr 320px;
+            gap: 2rem;
+            align-items: start;
+        }
+        
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+        
+        .info-card h3 {
+            margin-bottom: 0.75rem;
+            font-size: 1.05rem;
+        }
+        
+        .info-card ul {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .info-card ul li {
+            padding: 0.4rem 0;
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            border-bottom: 1px solid var(--border);
+        }
+        
+        .info-card ul li:last-child {
+            border-bottom: none;
+        }
+        
+        .info-card .highlight {
+            background: rgba(0, 200, 83, 0.1);
+            border: 1px solid rgba(0, 200, 83, 0.25);
+            border-radius: 8px;
+            padding: 0.85rem 1rem;
+            margin-top: 1rem;
+            font-size: 0.9rem;
+            color: var(--text);
+        }
+        
+        .info-card .highlight strong {
+            color: var(--accent);
+        }
+        
+        .form-note {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-top: 0.25rem;
+        }
+        
+        input:invalid:not(:placeholder-shown),
+        select:invalid:not([value=""]) {
+            border-color: var(--danger);
+        }
+        
+        @media (max-width: 900px) {
+            .appointment-layout {
+                grid-template-columns: 1fr;
+            }
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo"><span class="logo-icon"><IMg src="2.TIFT.png"></IMg></span><span class="logo-text">Life Care Hospital</span></a>
+            <button class="menu-toggle" onclick="toggleMenu()" aria-label="Toggle menu">☰</button>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="services.html">Services</a></li>
+                <li><a href="pharmacy.html">Pharmacy</a></li>
+                <li><a href="ambulance.html">Ambulance</a></li>
+                <li><a href="doctors.html ">Our Doctors</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="contact.html">Contact</a></li>
+                <li><a href="appointment.html" class="btn-book active">Book Appointment</a></li>
+                <li><button class="theme-toggle" id="themeToggle" onclick="toggleTheme()" title="Toggle dark mode">🌙</button></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="page">
+        <h1 class="section-title">Book an Appointment</h1>
+        <p class="section-subtitle">Fill in the details below. Our team will confirm your slot via phone or SMS.</p>
+
+        <div class="appointment-layout">
+            <!-- Form -->
+            <div class="card">
+                <form id="appointmentForm" class="form" style="max-width: 100%;">
+                    <!-- Patient Details -->
+                    <h3 style="margin-bottom: 0.5rem; font-size: 1.1rem;">Patient Details</h3>
+
+                    <div class="form-group">
+                        <label for="name">Full Name *</label>
+                        <input id="name" name="name" required minlength="2" placeholder="Patient full name" autocomplete="name" />
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="phone">Phone Number *</label>
+                            <input id="phone" name="phone" type="tel" required pattern="[0-9+\-\s]{10,15}" placeholder="+91 XXXXX XXXXX" autocomplete="tel" />
+                            <span class="form-note">10-digit mobile number preferred</span>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input id="email" name="email" type="email" placeholder="you@example.com" autocomplete="email" />
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="age">Age *</label>
+                            <input id="age" name="age" type="number" required min="0" max="120" placeholder="e.g. 35" />
+                        </div>
+                        <div class="form-group">
+                            <label for="gender">Gender *</label>
+                            <select id="gender" name="gender" required>
+                <option value="">Select Gender</option>
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+                <option value="Other">Other</option>
+                <option value="Prefer not to say">Prefer not to say</option>
+              </select>
+                        </div>
+                    </div>
+
+                    <!-- Appointment Details -->
+                    <h3 style="margin: 1.25rem 0 0.5rem; font-size: 1.1rem;">Appointment Details</h3>
+
+                    <div class="form-group">
+                        <label for="appointmentType">Appointment Type *</label>
+                        <select id="appointmentType" name="appointmentType" required>
+              <option value="">Select Type</option>
+              <option value="New Patient">New Patient Consultation</option>
+              <option value="Follow-up">Follow-up Visit</option>
+              <option value="Report Review">Report / Investigation Review</option>
+              <option value="Second Opinion">Second Opinion</option>
+            </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="department">Department *</label>
+                        <select id="department" name="department" required>
+              <option value="">Select Department</option>
+              <option value="General Medicine">General Medicine</option>
+              <option value="Cardiology">Cardiology</option>
+              <option value="Neurology">Neurology</option>
+              <option value="Orthopedics">Orthopedics</option>
+              <option value="Pediatrics">Pediatrics</option>
+              <option value="Gynecology & Obstetrics">Gynecology & Obstetrics</option>
+              <option value="General Surgery">General Surgery</option>
+              <option value="Oncology">Oncology</option>
+              <option value="Nephrology / Dialysis">Nephrology / Dialysis</option>
+              <option value="ENT">ENT</option>
+              <option value="Dermatology">Dermatology</option>
+              <option value="Ophthalmology">Ophthalmology</option>
+              <option value="Dental">Dental</option>
+              <option value="Physiotherapy">Physiotherapy</option>
+              <option value="Psychiatry">Psychiatry</option>
+              <option value="Other">Other</option>
+            </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="doctor">Preferred Doctor (optional)</label>
+                        <input id="doctor" name="doctor" placeholder="Doctor name if you have a preference" />
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="date">Preferred Date *</label>
+                            <input id="date" name="date" type="date" required />
+                        </div>
+                        <div class="form-group">
+                            <label for="time">Preferred Time *</label>
+                            <select id="time" name="time" required>
+                <option value="">Select Time Slot</option>
+                <option value="09:00 - 10:00">09:00 AM – 10:00 AM</option>
+                <option value="10:00 - 11:00">10:00 AM – 11:00 AM</option>
+                <option value="11:00 - 12:00">11:00 AM – 12:00 PM</option>
+                <option value="12:00 - 13:00">12:00 PM – 01:00 PM</option>
+                <option value="14:00 - 15:00">02:00 PM – 03:00 PM</option>
+                <option value="15:00 - 16:00">03:00 PM – 04:00 PM</option>
+                <option value="16:00 - 17:00">04:00 PM – 05:00 PM</option>
+                <option value="17:00 - 18:00">05:00 PM – 06:00 PM</option>
+              </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="message">Symptoms / Reason for Visit</label>
+                        <textarea id="message" name="message" rows="4" placeholder="Briefly describe symptoms, previous reports, or any special request..."></textarea>
+                    </div>
+
+                    <div class="form-group" style="flex-direction: row; align-items: flex-start; gap: 0.6rem;">
+                        <input type="checkbox" id="consent" name="consent" required style="width: auto; margin-top: 0.3rem;" />
+                        <label for="consent" style="font-weight: 400; font-size: 0.9rem;">
+              I confirm that the information provided is accurate and I consent to be contacted regarding this appointment. *
+            </label>
+                    </div>
+
+                    <button type="submit" id="submitBtn">Book Appointment</button>
+                    <div class="status" id="formStatus" style="display:none;"></div>
+                </form>
+            </div>
+
+            <!-- Side Info -->
+            <aside>
+                <div class="card info-card" style="margin-bottom: 1.25rem;">
+                    <h3>📅 OPD Timings</h3>
+                    <ul>
+                        <li>Mon – Sat: 8:00 AM – 8:00 PM</li>
+                        <li>Sunday: 9:00 AM – 2:00 PM</li>
+                        <li>Lunch break: 1:00 PM – 2:00 PM</li>
+                    </ul>
+                </div>
+
+                <div class="card info-card" style="margin-bottom: 1.25rem;">
+                    <h3>ℹ️ Important Notes</h3>
+                    <ul>
+                        <li>Please arrive 15 minutes early</li>
+                        <li>Carry previous reports if any</li>
+                        <li>Bring a valid ID proof</li>
+                        <li>Confirmation via SMS / call</li>
+                    </ul>
+                    <div class="highlight">
+                        <strong>Emergency?</strong><br /> Do not wait for appointment.<br /> Call <a href="tel:108" style="color: var(--danger); font-weight: 700;">108</a> or
+                        <a href="ambulance.html" style="color: var(--danger); font-weight: 700;">request ambulance</a>.
+                    </div>
+                </div>
+
+                <div class="card info-card">
+                    <h3>📞 Need Help?</h3>
+                    <ul>
+                        <li>Reception: +91-85448-53114</li>
+                        <li>Email: ramnish7171@gmail.com</li>
+                    </ul>
+                </div>
+            </aside>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <h3>🏥 Life Care Hospital</h3>
+                    <p>Providing compassionate, advanced healthcare services with a patient-first approach since 2005.</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="services.html">Services</a></li>
+                        <li><a href="pharmacy.html">Pharmacy</a></li>
+                        <li><a href="ambulance.html">Ambulance</a></li>
+                        <li><a href="appointment.html">Book Appointment</a></li>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Contact</h4>
+                    <ul>
+                        <li>📍 123 Health Avenue, Medical District</li>
+                        <li>📞 +91-85448-53114</li>
+                        <li>✉️ ramnish7171@gmail.com</li>
+                        <li>🚨 Emergency: 108</li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Working Hours</h4>
+                    <ul>
+                        <li>Mon – Sat: 8:00 AM – 8:00 PM</li>
+                        <li>Sunday: 9:00 AM – 2:00 PM</li>
+                        <li>Emergency & ICU: 24/7</li>
+                        <li>Ambulance: 24/7</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© 2026 Life Care Hospital. All Rights Reserved.</p>
+                <p class="admin-link"><a href="admin.html">Admin Dashboard</a></p>
+                <p class="admin-link"><a href="documents.html">Upload Documents</a></p>
+            </div>
+        </div>
+    </footer>
+
+    <script src=" js/main.js "></script>
+    <script>
+        // Set min date = today, max date = 60 days ahead
+        document.addEventListener("DOMContentLoaded ", () => {
+            const dateInput = document.getElementById("date ");
+            if (dateInput) {
+                const today = new Date();
+                const maxDate = new Date();
+                maxDate.setDate(today.getDate() + 60);
+                dateInput.min = today.toISOString().split("T ")[0];
+                dateInput.max = maxDate.toISOString().split("T ")[0];
+            }
+        });
+    </script>
+    <script src="main.js "></script>
+</body>
+
+
+</body>
+
+</html>
+
+</html>

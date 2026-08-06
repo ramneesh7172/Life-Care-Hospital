@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ambulance | Life Care Hospital</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css" />
+    <script src="https://www.gstatic.com/firebasejs/10.14.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.14.0/firebase-firestore-compat.js"></script>
+    <script src="main.js"></script>
+</head>
+
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <span class="logo-icon"><IMg src="2.TIFT.png"></IMg></span>
+                <span class="logo-text">Life Care Hospital</span>
+            </a>
+            <button class="menu-toggle" onclick="toggleMenu()" aria-label="Toggle menu">☰</button>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="services.html">Services</a></li>
+                <li><a href="pharmacy.html">Pharmacy</a></li>
+                <li><a href="ambulance.html" class="active">Ambulance</a></li>
+                <li><a href="doctors.html">Our Doctors</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="contact.html">Contact</a></li>
+                <li><a href="appointment.html" class="btn-book">Book Appointment</a></li>
+                <li><button class="theme-toggle" id="themeToggle" onclick="toggleTheme()" title="Toggle dark mode">🌙</button></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="page">
+        <h1 class="section-title">24/7 Advanced Ambulance Service</h1>
+        <p class="section-subtitle">Fast response • Trained paramedics • ALS & BLS equipped fleet</p>
+
+        <div class="emergency-banner">
+            <div>
+                <strong>🚨 Emergency Hotline</strong>
+                <p>Call Now: <a href="tel:+919876543210">+91-98765-43210</a> | Toll Free: <a href="tel:108">108</a></p>
+            </div>
+        </div>
+
+        <div class="grid grid-4" style="margin: 2rem 0;">
+            <div class="card feature-card">
+                <div class="icon">🚑</div>
+                <h3>ALS & BLS</h3>
+                <p>Advanced & Basic Life Support ambulances</p>
+            </div>
+            <div class="card feature-card">
+                <div class="icon">👨‍⚕️</div>
+                <h3>Paramedics</h3>
+                <p>Trained medical staff on every vehicle</p>
+            </div>
+            <div class="card feature-card">
+                <div class="icon">📍</div>
+                <h3>GPS Tracked</h3>
+                <p>Real-time location sharing with family</p>
+            </div>
+            <div class="card feature-card">
+                <div class="icon">⏱️</div>
+                <h3>~12 min</h3>
+                <p>Average city response time</p>
+            </div>
+        </div>
+
+        <div class="card" style="max-width: 560px;">
+            <h2 style="margin-bottom: 1rem;">Request Ambulance Online</h2>
+            <form id="ambulanceForm" class="form">
+                <div class="form-group">
+                    <label>Caller / Patient Name *</label>
+                    <input name="name" required placeholder="Full name" />
+                </div>
+                <div class="form-group">
+                    <label>Phone Number *</label>
+                    <input name="phone" required placeholder="+91 XXXXX XXXXX" />
+                </div>
+                <div class="form-group">
+                    <label>Pickup Location / Address *</label>
+                    <input name="location" required placeholder="Full address or landmark" />
+                </div>
+                <div class="form-group">
+                    <label>Nature of Emergency *</label>
+                    <input name="emergency" required placeholder="e.g. Accident, Chest pain, Stroke..." />
+                </div>
+                <div class="form-group">
+                    <label>Patient Condition (optional)</label>
+                    <textarea name="patientCondition" placeholder="Conscious? Breathing? Bleeding? Any known conditions..."></textarea>
+                </div>
+                <button type="submit" class="emergency-btn">🚨 Request Ambulance Now</button>
+                <div class="status" style="display:none;"></div>
+            </form>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <h3>🏥 Life Care Hospital</h3>
+                    <p>Providing compassionate, advanced healthcare services with a patient-first approach since 2005.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <script src="main.js"></script>
+
+</body>
+
+</html>

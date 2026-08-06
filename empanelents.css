@@ -1,0 +1,120 @@
+/* Empanelments page styles */
+
+.emp-intro {
+    margin-bottom: 2rem;
+    padding: 1.5rem;
+}
+
+.emp-intro p {
+    margin-bottom: 0.75rem;
+}
+
+.emp-note {
+    font-size: 0.95rem;
+    color: var(--text-muted);
+}
+
+.emp-controls {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+#empSearch {
+    flex: 1;
+    min-width: 220px;
+    padding: 0.75rem 1.25rem;
+    border: 1px solid var(--border);
+    border-radius: 50px;
+    background: var(--bg-card);
+    color: var(--text);
+    font-size: 0.95rem;
+    outline: none;
+}
+
+#empSearch:focus {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px rgba(0, 200, 83, 0.15);
+}
+
+#empType {
+    padding: 0.75rem 1.25rem;
+    border: 1px solid var(--border);
+    border-radius: 50px;
+    background: var(--bg-card);
+    color: var(--text);
+    font-size: 0.95rem;
+    min-width: 180px;
+    cursor: pointer;
+}
+
+.emp-card {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: var(--transition);
+}
+
+.emp-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-lg);
+}
+
+.emp-logo {
+    width: 64px;
+    height: 64px;
+    border-radius: 12px;
+    background: linear-gradient(135deg, var(--primary), var(--primary-light));
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+}
+
+.emp-card h3 {
+    font-size: 1.05rem;
+    margin-bottom: 0.35rem;
+}
+
+.emp-type {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--accent);
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    margin-bottom: 0.5rem;
+}
+
+.emp-card p {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    flex: 1;
+}
+
+.emp-status {
+    margin-top: 1rem;
+    padding: 0.3rem 0.8rem;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    background: rgba(0, 200, 83, 0.15);
+    color: var(--accent);
+}
+
+.no-results {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 3rem;
+    color: var(--text-muted);
+}
+
+@media (max-width: 640px) {
+    .emp-controls {
+        flex-direction: column;
+    }
+}

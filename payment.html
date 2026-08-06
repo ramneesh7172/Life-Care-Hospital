@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Online Payment | Life Care Hospital</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', system-ui, sans-serif;
+            background: #f0f7fa;
+            color: #1a2b3c;
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+        
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+        
+        .navbar {
+            background: #0a4d68;
+            color: #fff;
+            padding: 0.85rem 1.5rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.15);
+        }
+        
+        .nav-container {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            font-weight: 700;
+            font-size: 1.15rem;
+            color: #fff;
+        }
+        
+        .logo img {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 0.35rem;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+        
+        .nav-links a {
+            color: rgba(255, 255, 255, 0.9);
+            padding: 0.4rem 0.7rem;
+            border-radius: 8px;
+            font-size: 0.88rem;
+            font-weight: 500;
+        }
+        
+        .nav-links a:hover,
+        .nav-links a.active {
+            background: rgba(255, 255, 255, 0.15);
+            color: #fff;
+        }
+        
+        .btn-book {
+            background: #00c853 !important;
+            color: #fff !important;
+            font-weight: 600 !important;
+        }
+        
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: #fff;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+        
+        @media (max-width: 800px) {
+            .menu-toggle {
+                display: block;
+            }
+            .nav-links {
+                display: none;
+                width: 100%;
+                flex-direction: column;
+                align-items: stretch;
+            }
+            .nav-links.open {
+                display: flex;
+            }
+        }
+        
+        .page {
+            max-width: 720px;
+            margin: 0 auto;
+            padding: 2.5rem 1.25rem 4rem;
+        }
+        
+        .section-title {
+            text-align: center;
+            font-size: 1.9rem;
+            font-weight: 800;
+            color: #0a4d68;
+            margin-bottom: 0.35rem;
+        }
+        
+        .section-subtitle {
+            text-align: center;
+            color: #5a6a7a;
+            margin-bottom: 1.75rem;
+        }
+        
+        .info-box {
+            background: #e8f4f8;
+            border-left: 4px solid #0a4d68;
+            padding: 1rem 1.15rem;
+            border-radius: 0 10px 10px 0;
+            margin-bottom: 1.5rem;
+            font-size: 0.9rem;
+            color: #2a4050;
+        }
+        
+        .info-box strong {
+            color: #0a4d68;
+        }
+        
+        .card {
+            background: #fff;
+            border-radius: 16px;
+            padding: 2rem;
+            box-shadow: 0 8px 30px rgba(10, 77, 104, 0.1);
+            border: 1px solid #e0eef5;
+        }
+        
+        .card h2 {
+            font-size: 1.15rem;
+            color: #0a4d68;
+            margin-bottom: 1.25rem;
+        }
+        
+        .form-group {
+            margin-bottom: 1.1rem;
+        }
+        
+        .form-group label {
+            display: block;
+            font-size: 0.88rem;
+            font-weight: 600;
+            color: #0a4d68;
+            margin-bottom: 0.35rem;
+        }
+        
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 0.7rem 0.9rem;
+            border: 1.5px solid #c5d8e4;
+            border-radius: 10px;
+            font-size: 0.95rem;
+            font-family: inherit;
+            background: #f8fcfe;
+            color: #1a2b3c;
+        }
+        
+        .form-group input:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: #0a4d68;
+            box-shadow: 0 0 0 3px rgba(10, 77, 104, 0.15);
+            background: #fff;
+        }
+        
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+        
+        @media (max-width: 560px) {
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        .pay-methods {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 0.65rem;
+            margin-bottom: 1.25rem;
+        }
+        
+        @media (max-width: 560px) {
+            .pay-methods {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        .pay-method {
+            border: 2px solid #c5d8e4;
+            border-radius: 12px;
+            padding: 0.85rem 0.75rem;
+            text-align: center;
+            cursor: pointer;
+            background: #f8fcfe;
+            font-size: 0.88rem;
+            font-weight: 600;
+            color: #0a4d68;
+            transition: all 0.2s;
+        }
+        
+        .pay-method:hover {
+            border-color: #0a4d68;
+        }
+        
+        .pay-method.active {
+            border-color: #00c853;
+            background: #e8faf0;
+            color: #0a7a3e;
+        }
+        
+        .pay-method input {
+            display: none;
+        }
+        
+        .pay-method span {
+            display: block;
+            font-size: 1.4rem;
+            margin-bottom: 0.25rem;
+        }
+        
+        .btn-primary {
+            width: 100%;
+            padding: 0.85rem 1.5rem;
+            border: none;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            font-family: inherit;
+            background: #00c853;
+            color: #fff;
+            margin-top: 0.5rem;
+        }
+        
+        .btn-primary:hover {
+            background: #00a844;
+        }
+        
+        .btn-primary:disabled {
+            background: #9bb8c7;
+            cursor: not-allowed;
+        }
+        
+        .status {
+            margin-top: 1rem;
+            padding: 0.85rem 1rem;
+            border-radius: 10px;
+            font-size: 0.92rem;
+            font-weight: 500;
+            display: none;
+        }
+        
+        .status.success {
+            display: block;
+            background: #e8faf0;
+            color: #0a7a3e;
+            border: 1px solid #a3e4c0;
+        }
+        
+        .status.error {
+            display: block;
+            background: #fdecea;
+            color: #b71c1c;
+            border: 1px solid #f5c6cb;
+        }
+        
+        .receipt {
+            display: none;
+            margin-top: 1.25rem;
+            padding: 1.25rem;
+            background: #f0f9fc;
+            border: 1px solid #c5d8e4;
+            border-radius: 12px;
+        }
+        
+        .receipt.show {
+            display: block;
+        }
+        
+        .receipt h3 {
+            color: #0a4d68;
+            margin-bottom: 0.75rem;
+        }
+        
+        .receipt p {
+            font-size: 0.9rem;
+            margin-bottom: 0.35rem;
+        }
+        
+        .receipt strong {
+            color: #0a4d68;
+        }
+        
+        .footer {
+            background: #0a4d68;
+            color: rgba(255, 255, 255, 0.85);
+            padding: 2rem 1.5rem 1.25rem;
+            margin-top: 2rem;
+        }
+        
+        .footer-content {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+        
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr;
+            gap: 2rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        @media (max-width: 700px) {
+            .footer-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        .footer h3,
+        .footer h4 {
+            color: #fff;
+            margin-bottom: 0.55rem;
+            font-size: 1rem;
+        }
+        
+        .footer p,
+        .footer a {
+            font-size: 0.88rem;
+            color: rgba(255, 255, 255, 0.8);
+        }
+        
+        .footer ul {
+            list-style: none;
+        }
+        
+        .footer li {
+            margin-bottom: 0.3rem;
+        }
+        
+        .footer a:hover {
+            color: #00e676;
+        }
+        
+        .footer-bottom {
+            border-top: 1px solid rgba(255, 255, 255, 0.15);
+            padding-top: 1rem;
+            text-align: center;
+            font-size: 0.85rem;
+            color: rgba(255, 255, 255, 0.65);
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <img src="2.TIFT.png" alt="Logo" />
+                <span>Life Care Hospital</span>
+            </a>
+            <button class="menu-toggle" type="button" onclick="document.getElementById('navLinks').classList.toggle('open')" aria-label="Menu">☰</button>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="services.html">Services</a></li>
+                <li><a href="pharmacy.html">Pharmacy</a></li>
+                <li><a href="ambulance.html">Ambulance</a></li>
+                <li><a href="doctors.html">Doctors</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="contact.html">Contact</a></li>
+                <li><a href="appointment.html" class="btn-book">Book Appointment</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="page">
+        <h1 class="section-title">💳 Online Payment</h1>
+        <p class="section-subtitle">Pay hospital bills, consultation fees &amp; pharmacy charges securely</p>
+
+        <div class="info-box">
+            <strong>Payment:</strong> This form simulates payment. No real money is charged. Use UPI / Card / Net Banking options as you prefer.
+        </div>
+
+        <div class="card">
+            <h2>Payment details</h2>
+            <form id="paymentForm">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="patientName">Patient full name *</label>
+                        <input type="text" id="patientName" required placeholder="Enter patient name" />
+                    </div>
+                    <div class="form-group">
+                        <label for="patientId">Patient ID / Bill No.</label>
+                        <input type="text" id="patientId" placeholder="e.g. LCH-2026-00123" />
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="phone">Phone number *</label>
+                        <input type="tel" id="phone" required placeholder="+91 XXXXX XXXXX" />
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" placeholder="you@example.com" />
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="purpose">Payment for *</label>
+                        <select id="purpose" required>
+              <option value="">— Select —</option>
+              <option value="consultation">Consultation fee</option>
+              <option value="lab">Lab / Diagnostics</option>
+              <option value="pharmacy">Pharmacy</option>
+              <option value="admission">Admission / IPD bill</option>
+              <option value="ambulance">Ambulance</option>
+              <option value="other">Other</option>
+            </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="amount">Amount (₹) *</label>
+                        <input type="number" id="amount" required min="1" step="1" placeholder="e.g. 500" />
+                    </div>
+                </div>
+
+                <label style="display:block;font-size:0.88rem;font-weight:600;color:#0a4d68;margin-bottom:0.5rem;">Payment method *</label>
+                <div class="pay-methods">
+                    <label class="pay-method active">
+            <input type="radio" name="method" value="upi" checked />
+            <span>📱</span> UPI
+          </label>
+                    <label class="pay-method">
+            <input type="radio" name="method" value="card" />
+            <span>💳</span> Card
+          </label>
+                    <label class="pay-method">
+            <input type="radio" name="method" value="netbanking" />
+            <span>🏦</span> Net Banking
+          </label>
+                </div>
+
+                <div class="form-group" id="upiField">
+                    <label for="upiId">UPI ID</label>
+                    <input type="text" id="upiId" placeholder="name@upi" />
+                </div>
+                <div class="form-group" id="cardFields" style="display:none;">
+                    <label for="cardLast4">Card last 4 digits</label>
+                    <input type="text" id="cardLast4" maxlength="4" placeholder="1234" />
+                </div>
+
+                <button type="submit" class="btn-primary" id="payBtn">Pay Now</button>
+                <div class="status" id="statusMsg"></div>
+                <div class="receipt" id="receipt">
+                    <h3>✅ Payment recorded</h3>
+                    <p><strong>Reference:</strong> <span id="rRef"></span></p>
+                    <p><strong>Patient:</strong> <span id="rName"></span></p>
+                    <p><strong>Amount:</strong> ₹<span id="rAmount"></span></p>
+                    <p><strong>Method:</strong> <span id="rMethod"></span></p>
+                    <p><strong>Purpose:</strong> <span id="rPurpose"></span></p>
+                    <p style="margin-top:0.75rem;color:#5a6a7a;font-size:0.85rem;">Show this reference at the billing desk if needed. Admin can view all payments in the staff panel.</p>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-grid">
+                <div>
+                    <h3>🏥 Life Care Hospital</h3>
+                    <p>Compassionate, advanced healthcare with a patient-first approach.</p>
+                </div>
+                <div>
+                    <h4>Quick links</h4>
+                    <ul>
+                        <li><a href="documents.html">Upload Documents</a></li>
+                        <li><a href="payment.html">Online Payment</a></li>
+                        <li><a href="appointment.html">Book Appointment</a></li>
+                        <li><a href="admin.html">Staff Admin</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4>Contact</h4>
+                    <p>123 Health Avenue, Medical District</p>
+                    <p>City – 144306, India</p>
+                    <p>Phone: +91-85448-53114</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2023–2026 Life Care Hospital. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        (function() {
+            var STORAGE_KEY = "payments_local";
+            var methods = document.querySelectorAll(".pay-method");
+            var upiField = document.getElementById("upiField");
+            var cardFields = document.getElementById("cardFields");
+
+            methods.forEach(function(el) {
+                el.addEventListener("click", function() {
+                    methods.forEach(function(m) {
+                        m.classList.remove("active");
+                    });
+                    el.classList.add("active");
+                    el.querySelector("input").checked = true;
+                    var v = el.querySelector("input").value;
+                    upiField.style.display = v === "upi" ? "block" : "none";
+                    cardFields.style.display = v === "card" ? "block" : "none";
+                });
+            });
+
+            function showStatus(msg, type) {
+                var el = document.getElementById("statusMsg");
+                el.textContent = msg;
+                el.className = "status " + type;
+                el.style.display = "block";
+            }
+
+            document.getElementById("paymentForm").addEventListener("submit", function(e) {
+                e.preventDefault();
+                document.getElementById("receipt").classList.remove("show");
+                document.getElementById("statusMsg").style.display = "none";
+
+                var name = document.getElementById("patientName").value.trim();
+                var phone = document.getElementById("phone").value.trim();
+                var purpose = document.getElementById("purpose").value;
+                var amount = parseFloat(document.getElementById("amount").value);
+                var method = (document.querySelector('input[name="method"]:checked') || {}).value || "upi";
+
+                if (!name || !phone || !purpose || !amount || amount < 1) {
+                    showStatus("Please fill all required fields with a valid amount.", "error");
+                    return;
+                }
+
+                var btn = document.getElementById("payBtn");
+                btn.disabled = true;
+                btn.textContent = "Processing…";
+
+                setTimeout(function() {
+                    var id = "PAY-" + Date.now();
+                    var entry = {
+                        id: id,
+                        patientName: name,
+                        patientId: document.getElementById("patientId").value.trim(),
+                        phone: phone,
+                        email: document.getElementById("email").value.trim(),
+                        purpose: purpose,
+                        amount: amount,
+                        method: method,
+                        upiId: document.getElementById("upiId").value.trim(),
+                        cardLast4: document.getElementById("cardLast4").value.trim(),
+                        status: "paid",
+                        createdAt: new Date().toISOString()
+                    };
+
+                    try {
+                        var list = JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]");
+                        if (!Array.isArray(list)) list = [];
+                        list.unshift(entry);
+                        localStorage.setItem(STORAGE_KEY, JSON.stringify(list.slice(0, 200)));
+                    } catch (err) {
+                        showStatus("Could not save payment. Try again.", "error");
+                        btn.disabled = false;
+                        btn.textContent = "Pay Now";
+                        return;
+                    }
+
+                    document.getElementById("rRef").textContent = id;
+                    document.getElementById("rName").textContent = name;
+                    document.getElementById("rAmount").textContent = amount.toFixed(0);
+                    document.getElementById("rMethod").textContent = method.toUpperCase();
+                    document.getElementById("rPurpose").textContent = purpose;
+                    document.getElementById("receipt").classList.add("show");
+                    showStatus("Payment successful (demo). Reference saved for admin.", "success");
+
+                    document.getElementById("paymentForm").reset();
+                    methods.forEach(function(m) {
+                        m.classList.remove("active");
+                    });
+                    methods[0].classList.add("active");
+                    methods[0].querySelector("input").checked = true;
+                    upiField.style.display = "block";
+                    cardFields.style.display = "none";
+
+                    btn.disabled = false;
+                    btn.textContent = "Pay Now";
+                }, 700);
+            });
+        })();
+    </script>
+</body>
+
+</html>

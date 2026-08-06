@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Our Doctors | Life Care Hospital</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+    <script src="https://www.gstatic.com/firebasejs/10.14.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.14.0/firebase-firestore-compat.js"></script>
+    <link rel="stylesheet" href="styles.css" />
+    <script src="main.js"></script>
+    <style>
+        .doctor-card {
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .doctor-avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary), var(--primary-light));
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.6rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+        
+        .doctor-card h3 {
+            margin-bottom: 0.25rem;
+            font-size: 1.1rem;
+        }
+        
+        .doctor-card .dept {
+            color: var(--primary);
+            font-weight: 600;
+            font-size: 0.9rem;
+            margin-bottom: 0.35rem;
+        }
+        
+        .doctor-card .meta {
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            margin-bottom: 1rem;
+            line-height: 1.5;
+        }
+        
+        .doctor-card .btn {
+            margin-top: auto;
+            padding: 0.5rem 1.1rem;
+            font-size: 0.85rem;
+        }
+        
+        .dept-filter {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 2rem;
+        }
+        
+        .dept-filter button {
+            padding: 0.45rem 1rem;
+            border-radius: 50px;
+            border: 1px solid var(--border);
+            background: var(--bg-card);
+            color: var(--text);
+            cursor: pointer;
+            font-size: 0.85rem;
+            font-weight: 500;
+            transition: var(--transition);
+        }
+        
+        .dept-filter button:hover,
+        .dept-filter button.active {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+        
+        .doctor-card.hidden {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo"><span class="logo-icon"><IMg src="2.TIFT.png"></IMg></span><span class="logo-text">Life Care Hospital</span></a>
+            <button class="menu-toggle" onclick="toggleMenu()" aria-label="Toggle menu" aria-expanded="false">☰</button>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="services.html">Services</a></li>
+                <li><a href="pharmacy.html">Pharmacy</a></li>
+                <li><a href="ambulance.html">Ambulance</a></li>
+                <li><a href="doctors.html" class="active">Our Doctors</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="contact.html">Contact</a></li>
+                <li><a href="appointment.html" class="btn-book">Book Appointment</a></li>
+                <li><button class="theme-toggle" id="themeToggle" onclick="toggleTheme()" title="Toggle dark mode">🌙</button></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="page">
+        <h1 class="section-title">Our Doctors</h1>
+        <p class="section-subtitle">Experienced specialists dedicated to your care</p>
+
+        <div class="dept-filter" id="deptFilter">
+            <button class="active" data-dept="all">All</button>
+            <button data-dept="General Medicine">General Medicine</button>
+            <button data-dept="Cardiology">Cardiology</button>
+            <button data-dept="Neurology">Neurology</button>
+            <button data-dept="Orthopedics">Orthopedics</button>
+            <button data-dept="Pediatrics">Pediatrics</button>
+            <button data-dept="Gynecology">Gynecology</button>
+            <button data-dept="Surgery">Surgery</button>
+            <button data-dept="Other">Other Specialties</button>
+        </div>
+
+        <div class="grid grid-3" id="doctorsGrid">
+            <!-- General Medicine -->
+            <div class="card doctor-card" data-dept="General Medicine">
+                <div class="doctor-avatar">AS</div>
+                <h3>Dr. Anita Sharma</h3>
+                <p class="dept">General Medicine</p>
+                <p class="meta">MBBS, MD (Medicine)<br />15+ years experience</p>
+                <a href="appointment.html" class="btn btn-outline">Book Appointment</a>
+            </div>
+            <div class="card doctor-card" data-dept="General Medicine">
+                <div class="doctor-avatar">RM</div>
+                <h3>Dr. Rajesh Mehta</h3>
+                <p class="dept">General Medicine</p>
+                <p class="meta">MBBS, MD (Medicine)<br />12+ years experience</p>
+                <a href="appointment.html" class="btn btn-outline">Book Appointment</a>
+            </div>
+            <div class="card doctor-card" data-dept="General Medicine">
+                <div class="doctor-avatar">PN</div>
+                <h3>Dr. Priya Nair</h3>
+                <p class="dept">General Medicine</p>
+                <p class="meta">MBBS, MD (Medicine)<br />10+ years experience</p>
+                <a href="appointment.html" class="btn btn-outline">Book Appointment</a>
+            </div>
+
+            <!-- Cardiology -->
+            <div class="card doctor-card" data-dept="Cardiology">
+                <div class="doctor-avatar">SP</div>
+                <h3>Dr. Suresh Patel</h3>
+                <p class="dept">Cardiology</p>
+                <p class="meta">MBBS, MD, DM (Cardiology)<br />18+ years experience</p>
+                <a href="appointment.html" class="btn btn-outline">Book Appointment</a>
+            </div>
+            <div class="card doctor-card" data-dept="Cardiology">
+                <div class="doctor-avatar">MI</div>
+                <h3>Dr. Meera Iyer</h3>
+                <p class="dept">Cardiology</p>
+                <p class="meta">MBBS, MD, DM (Cardiology)<br />14+ years experience</p>
+                <a href="appointment.html" class="btn btn-outline">Book Appointment</a>
+            </div>
+
+            <!-- Neurology -->
+            <div class="card doctor-card" data-dept="Neurology">
+                <div class="doctor-avatar">VS</div>
+                <h3>Dr. Vikram Singh</h3>
+                <p class="dept">Neurology</p>
+                <p class="meta">MBBS, MD, DM (Neurology)<br />16+ years experience</p>
+                <a href="appointment.html" class="btn btn-outline">Book Appointment</a>
+            </div>
+            <div class="card doctor-card" data-dept="Neurology">
+                <div class="doctor-avatar">AR</div>
+                <h3>Dr. Anjali Rao</h3>
+                <p class="dept">Neurology</p>
+                <p class="meta">MBBS, MD, DM (Neurology)<br />11+ years experience</p>
+                <a href="appointment.html" class="btn btn-outline">Book Appointment</a>
+            </div>
+
+            <!-- Orthopedics -->
+            <div class="card doctor-card" data-dept="Orthopedics">
+                <div class="doctor-avatar">KM</div>
+                <h3>Dr. Karan Malhotra</h3>
+                <p class="dept">Orthopedics</p>
+                <p class="meta">MBBS, MS (Ortho)<br />13+ years experience</p>
+                <a href="appointment.html" class="btn btn-outline">Book Appointment</a>
+            </div>
+            <div class="card doctor-card" data-dept="Orthopedics">
+                <div class="doctor-avatar">NG</div>
+                <h3>Dr. Neha Gupta</h3>
+                <p class="dept">Orthopedics</p>
+                <p class="meta">MBBS, MS (Ortho)<br />9+ years experience</p>
+                <a href="appointment.html" class="btn btn-outline">Book Appointment</a>
+            </div>
+
+            <!-- Pediatrics -->
+            <div class="card doctor-card" data-dept="Pediatrics">
+                <div class="doctor-avatar">SR</div>
+                <h3>Dr. Sunita Reddy</h3>
+                <p class="dept">Pediatrics</p>
+                <p class="meta">MBBS, MD (Pediatrics)<br />14+ years experience</p>
+                <a href="appointment.html" class="btn btn-outline">Book Appointment</a>
+            </div>
+            <div class="card doctor-card" data-dept="Pediatrics">
+                <div class="doctor-avatar">AJ</div>
+                <h3>Dr. Amit Joshi</h3>
+                <p class="dept">Pediatrics</p>
+                <p class="meta">MBBS, MD (Pediatrics)<br />10+ years experience</p>
+                <a href="appointment.html" class="btn btn-outline">Book Appointment</a>
+            </div>
+
+            <!-- Gynecology -->
+            <div class="card doctor-card" data-dept="Gynecology">
+                <div class="doctor-avatar">KD</div>
+                <h3>Dr. Kavita Desai</h3>
+                <p class="dept">Gynecology & Obstetrics</p>
+                <p class="meta">MBBS, MS (OBG)<br />17+ years experience</p>
+                <a href="appointment.html" class="btn btn-outline">Book Appointment</a>
+            </div>
+            <div class="card doctor-card" data-dept="Gynecology">
+                <div class="doctor-avatar">RK</div>
+                <h3>Dr. Ritu Kapoor</h3>
+                <p class="dept">Gynecology & Obstetrics</p>
+                <p class="meta">MBBS, MS (OBG)<br />12+ years experience</p>
+                <a href="appointment.html" class="btn btn-outline">Book Appointment</a>
+            </div>
+
+            <!-- Surgery -->
+            <div class="card doctor-card" data-dept="Surgery">
+                <div class="doctor-avatar">AV</div>
+                <h3>Dr. Arjun Verma</h3>
+                <p class="dept">General Surgery</p>
+                <p class="meta">MBBS, MS (Surgery)<br />15+ years experience</p>
+                <a href="appointment.html" class="btn btn-outline">Book Appointment</a>
+            </div>
+            <div class="card doctor-card" data-dept="Surgery">
+                <div class="doctor-avatar">FA</div>
+                <h3>Dr. Farhan Ali</h3>
+                <p class="dept">General Surgery</p>
+                <p class="meta">MBBS, MS (Surgery)<br />11+ years experience</p>
+                <a href="appointment.html" class="btn btn-outline">Book Appointment</a>
+            </div>
+
+            <!-- Other -->
+            <div class="card doctor-card" data-dept="Other">
+                <div class="doctor-avatar">DK</div>
+                <h3>Dr. Deepa Krishnan</h3>
+                <p class="dept">Oncology</p>
+                <p class="meta">MBBS, MD, DM (Oncology)<br />13+ years experience</p>
+                <a href="appointment.html" class="btn btn-outline">Book Appointment</a>
+            </div>
+            <div class="card doctor-card" data-dept="Other">
+                <div class="doctor-avatar">MD</div>
+                <h3>Dr. Mohan Das</h3>
+                <p class="dept">Nephrology</p>
+                <p class="meta">MBBS, MD, DM (Nephrology)<br />14+ years experience</p>
+                <a href="appointment.html" class="btn btn-outline">Book Appointment</a>
+            </div>
+            <div class="card doctor-card" data-dept="Other">
+                <div class="doctor-avatar">LM</div>
+                <h3>Dr. Leela Menon</h3>
+                <p class="dept">ENT</p>
+                <p class="meta">MBBS, MS (ENT)<br />10+ years experience</p>
+                <a href="appointment.html" class="btn btn-outline">Book Appointment</a>
+            </div>
+            <div class="card doctor-card" data-dept="Other">
+                <div class="doctor-avatar">SB</div>
+                <h3>Dr. Sneha Bhat</h3>
+                <p class="dept">Dermatology</p>
+                <p class="meta">MBBS, MD (Dermatology)<br />9+ years experience</p>
+                <a href="appointment.html" class="btn btn-outline">Book Appointment</a>
+            </div>
+            <div class="card doctor-card" data-dept="Other">
+                <div class="doctor-avatar">RS</div>
+                <h3>Dr. Rohit Saxena</h3>
+                <p class="dept">Ophthalmology</p>
+                <p class="meta">MBBS, MS (Ophthalmology)<br />12+ years experience</p>
+                <a href="appointment.html" class="btn btn-outline">Book Appointment</a>
+            </div>
+            <div class="card doctor-card" data-dept="Other">
+                <div class="doctor-avatar">PS</div>
+                <h3>Dr. Pooja Shah</h3>
+                <p class="dept">Dental</p>
+                <p class="meta">BDS, MDS<br />8+ years experience</p>
+                <a href="appointment.html" class="btn btn-outline">Book Appointment</a>
+            </div>
+            <div class="card doctor-card" data-dept="Other">
+                <div class="doctor-avatar">NB</div>
+                <h3>Dr. Nikhil Bose</h3>
+                <p class="dept">Physiotherapy</p>
+                <p class="meta">BPT, MPT<br />7+ years experience</p>
+                <a href="appointment.html" class="btn btn-outline">Book Appointment</a>
+            </div>
+            <div class="card doctor-card" data-dept="Other">
+                <div class="doctor-avatar">AK</div>
+                <h3>Dr. Ayesha Khan</h3>
+                <p class="dept">Psychiatry</p>
+                <p class="meta">MBBS, MD (Psychiatry)<br />11+ years experience</p>
+                <a href="appointment.html" class="btn btn-outline">Book Appointment</a>
+            </div>
+        </div>
+
+        <div class="cta-box">
+            <h3>Need to consult a specialist?</h3>
+            <p>Book an appointment online — choose your preferred doctor and time slot.</p>
+            <a href="appointment.html" class="btn btn-primary">Book Appointment</a>
+            <a href="documents.html" class="btn btn-secondary">Upload Medical Records</a>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <h3>🏥 Life Care Hospital</h3>
+                    <p>Providing compassionate, advanced healthcare services with a patient-first approach since 2005.</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="services.html">Services</a></li>
+                        <li><a href="doctors.html" class="active">Doctors</a></li>
+                        <li><a href=" pharmacy.html ">Pharmacy</a></li>
+                        <li><a href="ambulance.html ">Ambulance</a></li>
+                        <li><a href="appointment.html ">Book Appointment</a></li>
+                        <li><a href="about.html ">About Us</a></li>
+                        <li><a href="contact.html ">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col ">
+                    <h4>Contact</h4>
+                    <ul>
+                        <li>📍 123 Health Avenue, Medical District</li>
+                        <li>📞 +91-85448-53114</li>
+                        <li>✉️ ramnish7171@gmail.com</li>
+                        <li>🚨 Emergency: 108</li>
+                    </ul>
+                </div>
+                <div class="footer-col ">
+                    <h4>Working Hours</h4>
+                    <ul>
+                        <li>Mon – Sat: 8:00 AM – 8:00 PM</li>
+                        <li>Sunday: 9:00 AM – 2:00 PM</li>
+                        <li>Emergency & ICU: 24/7</li>
+                        <li>Ambulance: 24/7</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom ">
+                <p>© 2026 Life Care Hospital. All Rights Reserved.</p>
+                <p class="admin-link "><a href="admin.html ">Admin Dashboard</a></p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/main.js "></script>
+    <script>
+        document.querySelectorAll("#deptFilter button ").forEach((btn) => {
+            btn.addEventListener("click ", () => {
+                document.querySelectorAll("#deptFilter button ").forEach((b) => b.classList.remove("active "));
+                btn.classList.add("active ");
+                const dept = btn.dataset.dept;
+                document.querySelectorAll("#doctorsGrid .doctor-card ").forEach((card) => {
+                    if (dept === "all " || card.dataset.dept === dept) {
+                        card.classList.remove("hidden ");
+                    } else {
+                        card.classList.add("hidden ");
+                    }
+                });
+            });
+        });
+    </script>
+    <script src="main.js"></script>
+</body>
+
+</html>

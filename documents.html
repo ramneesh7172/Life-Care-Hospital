@@ -1,0 +1,802 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Upload Documents | Life Care Hospital</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', system-ui, sans-serif;
+            background: #f0f7fa;
+            color: #1a2b3c;
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+        
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+        
+        .navbar {
+            background: #0a4d68;
+            color: #fff;
+            padding: 0.85rem 1.5rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.15);
+        }
+        
+        .nav-container {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            font-weight: 700;
+            font-size: 1.15rem;
+            color: #fff;
+        }
+        
+        .logo img {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 0.35rem;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+        
+        .nav-links a {
+            color: rgba(255, 255, 255, 0.9);
+            padding: 0.4rem 0.7rem;
+            border-radius: 8px;
+            font-size: 0.88rem;
+            font-weight: 500;
+        }
+        
+        .nav-links a:hover,
+        .nav-links a.active {
+            background: rgba(255, 255, 255, 0.15);
+            color: #fff;
+        }
+        
+        .btn-book {
+            background: #00c853 !important;
+            color: #fff !important;
+            font-weight: 600 !important;
+        }
+        
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: #fff;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+        
+        @media (max-width: 800px) {
+            .menu-toggle {
+                display: block;
+            }
+            .nav-links {
+                display: none;
+                width: 100%;
+                flex-direction: column;
+                align-items: stretch;
+            }
+            .nav-links.open {
+                display: flex;
+            }
+        }
+        
+        .page {
+            max-width: 820px;
+            margin: 0 auto;
+            padding: 2.5rem 1.25rem 4rem;
+        }
+        
+        .section-title {
+            text-align: center;
+            font-size: 1.9rem;
+            font-weight: 800;
+            color: #0a4d68;
+            margin-bottom: 0.35rem;
+        }
+        
+        .section-subtitle {
+            text-align: center;
+            color: #5a6a7a;
+            margin-bottom: 1.75rem;
+            font-size: 1rem;
+        }
+        
+        .info-box {
+            background: #e8f4f8;
+            border-left: 4px solid #0a4d68;
+            padding: 1rem 1.15rem;
+            border-radius: 0 10px 10px 0;
+            margin-bottom: 1.5rem;
+            font-size: 0.9rem;
+            color: #2a4050;
+        }
+        
+        .info-box strong {
+            color: #0a4d68;
+        }
+        
+        .card {
+            background: #fff;
+            border-radius: 16px;
+            padding: 2rem;
+            box-shadow: 0 8px 30px rgba(10, 77, 104, 0.1);
+            border: 1px solid #e0eef5;
+        }
+        
+        .card h2 {
+            font-size: 1.2rem;
+            color: #0a4d68;
+            margin-bottom: 1.25rem;
+        }
+        
+        .form-group {
+            margin-bottom: 1.1rem;
+        }
+        
+        .form-group label {
+            display: block;
+            font-size: 0.88rem;
+            font-weight: 600;
+            color: #0a4d68;
+            margin-bottom: 0.35rem;
+        }
+        
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.7rem 0.9rem;
+            border: 1.5px solid #c5d8e4;
+            border-radius: 10px;
+            font-size: 0.95rem;
+            font-family: inherit;
+            background: #f8fcfe;
+            color: #1a2b3c;
+        }
+        
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #0a4d68;
+            box-shadow: 0 0 0 3px rgba(10, 77, 104, 0.15);
+            background: #fff;
+        }
+        
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+        
+        @media (max-width: 600px) {
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        .drop-zone {
+            border: 2.5px dashed #0a4d68;
+            border-radius: 14px;
+            padding: 2rem 1.5rem;
+            text-align: center;
+            background: #f0f9fc;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            margin-bottom: 0.75rem;
+        }
+        
+        .drop-zone:hover,
+        .drop-zone.dragover {
+            background: #e0f2f8;
+            border-color: #00c853;
+        }
+        
+        .drop-zone .icon {
+            font-size: 2.6rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .drop-zone h3 {
+            font-size: 1.05rem;
+            color: #0a4d68;
+            margin-bottom: 0.25rem;
+        }
+        
+        .drop-zone p {
+            font-size: 0.88rem;
+            color: #5a6a7a;
+        }
+        
+        .drop-zone input[type="file"] {
+            display: none;
+        }
+        
+        .file-list {
+            margin-top: 0.5rem;
+        }
+        
+        .file-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 0.75rem;
+            padding: 0.65rem 0.85rem;
+            background: #f0f9fc;
+            border: 1px solid #c5d8e4;
+            border-radius: 10px;
+            margin-bottom: 0.45rem;
+            font-size: 0.9rem;
+        }
+        
+        .file-item .name {
+            flex: 1;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            font-weight: 500;
+        }
+        
+        .file-item .size {
+            color: #5a6a7a;
+            font-size: 0.82rem;
+        }
+        
+        .file-item .remove {
+            background: none;
+            border: none;
+            color: #d50000;
+            cursor: pointer;
+            font-size: 1.1rem;
+            padding: 0 0.3rem;
+        }
+        
+        .btn-primary {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            padding: 0.8rem 1.5rem;
+            border: none;
+            border-radius: 10px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            cursor: pointer;
+            font-family: inherit;
+            background: #0a4d68;
+            color: #fff;
+            margin-top: 0.5rem;
+        }
+        
+        .btn-primary:hover {
+            background: #083d54;
+        }
+        
+        .btn-primary:disabled {
+            background: #9bb8c7;
+            cursor: not-allowed;
+        }
+        
+        .btn-secondary {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            padding: 0.75rem 1.5rem;
+            border: 2px solid #0a4d68;
+            border-radius: 10px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            cursor: pointer;
+            font-family: inherit;
+            background: #fff;
+            color: #0a4d68;
+            margin-top: 0.75rem;
+            text-decoration: none;
+        }
+        
+        .btn-secondary:hover {
+            background: #e8f4f8;
+        }
+        
+        .progress-wrap {
+            display: none;
+            margin-top: 1rem;
+        }
+        
+        .progress-wrap.visible {
+            display: block;
+        }
+        
+        .progress-bar-bg {
+            height: 10px;
+            background: #d0eaf3;
+            border-radius: 6px;
+            overflow: hidden;
+        }
+        
+        .progress-bar-fill {
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(90deg, #0a4d68, #00c853);
+            border-radius: 6px;
+            transition: width 0.25s ease;
+        }
+        
+        .progress-text {
+            font-size: 0.82rem;
+            color: #5a6a7a;
+            margin-top: 0.35rem;
+            text-align: center;
+        }
+        
+        .status {
+            margin-top: 1rem;
+            padding: 0.85rem 1rem;
+            border-radius: 10px;
+            font-size: 0.92rem;
+            font-weight: 500;
+            display: none;
+        }
+        
+        .status.success {
+            display: block;
+            background: #e8faf0;
+            color: #0a7a3e;
+            border: 1px solid #a3e4c0;
+        }
+        
+        .status.error {
+            display: block;
+            background: #fdecea;
+            color: #b71c1c;
+            border: 1px solid #f5c6cb;
+        }
+        
+        .footer {
+            background: #0a4d68;
+            color: rgba(255, 255, 255, 0.85);
+            padding: 2rem 1.5rem 1.25rem;
+            margin-top: 2rem;
+        }
+        
+        .footer-content {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+        
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr;
+            gap: 2rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        @media (max-width: 700px) {
+            .footer-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        .footer h3,
+        .footer h4 {
+            color: #fff;
+            margin-bottom: 0.55rem;
+            font-size: 1rem;
+        }
+        
+        .footer p,
+        .footer a {
+            font-size: 0.88rem;
+            color: rgba(255, 255, 255, 0.8);
+        }
+        
+        .footer ul {
+            list-style: none;
+        }
+        
+        .footer li {
+            margin-bottom: 0.3rem;
+        }
+        
+        .footer a:hover {
+            color: #00e676;
+        }
+        
+        .footer-bottom {
+            border-top: 1px solid rgba(255, 255, 255, 0.15);
+            padding-top: 1rem;
+            text-align: center;
+            font-size: 0.85rem;
+            color: rgba(255, 255, 255, 0.65);
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <img src="2.TIFT.png" alt="Logo" />
+                <span>Life Care Hospital</span>
+            </a>
+            <button class="menu-toggle" type="button" onclick="document.getElementById('navLinks').classList.toggle('open')" aria-label="Menu">☰</button>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="services.html">Services</a></li>
+                <li><a href="pharmacy.html">Pharmacy</a></li>
+                <li><a href="ambulance.html">Ambulance</a></li>
+                <li><a href="doctors.html">Doctors</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="contact.html">Contact</a></li>
+                <li><a href="appointment.html" class="btn-book">Book Appointment</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="page">
+        <h1 class="section-title">📄 Upload Documents</h1>
+        <p class="section-subtitle">Submit medical reports, prescriptions, ID proofs and related files</p>
+
+        <div class="info-box">
+            <strong>Accepted:</strong> PDF, JPG, PNG, DOC, DOCX &nbsp;|&nbsp;
+            <strong>Max:</strong> 10 MB each &nbsp;|&nbsp;
+            <strong>Storage:</strong> Saved for admin review (local browser storage)
+        </div>
+
+        <div class="card">
+            <h2>Patient &amp; document details</h2>
+            <form id="uploadForm">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="patientName">Patient full name *</label>
+                        <input type="text" id="patientName" name="patientName" required placeholder="Enter patient name" />
+                    </div>
+                    <div class="form-group">
+                        <label for="patientId">Patient ID / UHID</label>
+                        <input type="text" id="patientId" name="patientId" placeholder="e.g. LCH-2026-00123" />
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="phone">Phone number *</label>
+                        <input type="tel" id="phone" name="phone" required placeholder="+91 XXXXX XXXXX" />
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name="email" placeholder="you@example.com" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="docType">Document type *</label>
+                    <select id="docType" name="docType" required>
+            <option value="">— Select type —</option>
+            <option value="prescription">Prescription / Rx</option>
+            <option value="lab-report">Lab / Pathology Report</option>
+            <option value="radiology">X-Ray / MRI / CT Scan</option>
+            <option value="discharge">Discharge Summary</option>
+            <option value="id-proof">ID Proof</option>
+            <option value="insurance">Insurance / Policy</option>
+            <option value="other">Other Medical Document</option>
+          </select>
+                </div>
+                <div class="form-group">
+                    <label for="notes">Additional notes</label>
+                    <textarea id="notes" name="notes" rows="3" placeholder="Any special instructions…"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label>Upload files *</label>
+                    <div class="drop-zone" id="dropZone">
+                        <div class="icon">📁</div>
+                        <h3>Drag &amp; drop files here</h3>
+                        <p>or click to browse · PDF, JPG, PNG, DOC, DOCX</p>
+                        <input type="file" id="fileInput" multiple accept=".pdf,.jpg,.jpeg,.png,.doc,.docx,application/pdf,image/*" />
+                    </div>
+                    <div class="file-list" id="fileList"></div>
+                </div>
+
+                <button type="submit" class="btn-primary" id="submitBtn">⬆️ Upload Documents</button>
+                <a href="payment.html" class="btn-secondary">💳 Pay hospital bill online</a>
+
+                <div class="progress-wrap" id="progressWrap">
+                    <div class="progress-bar-bg">
+                        <div class="progress-bar-fill" id="progressFill"></div>
+                    </div>
+                    <div class="progress-text" id="progressText">Uploading… 0%</div>
+                </div>
+                <div class="status" id="statusMsg"></div>
+            </form>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-grid">
+                <div>
+                    <h3>🏥 Life Care Hospital</h3>
+                    <p>Compassionate, advanced healthcare with a patient-first approach.</p>
+                </div>
+                <div>
+                    <h4>Quick links</h4>
+                    <ul>
+                        <li><a href="services.html">Services</a></li>
+                        <li><a href="pharmacy.html">Pharmacy</a></li>
+                        <li><a href="ambulance.html">Ambulance</a></li>
+                        <li><a href="documents.html">Upload Documents</a></li>
+                        <li><a href="payment.html">Online Payment</a></li>
+                        <li><a href="admin.html">Staff Admin</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4>Contact</h4>
+                    <p>123 Health Avenue, Medical District</p>
+                    <p>City – 144306, India</p>
+                    <p>Phone: +91-85448-53114</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2023–2026 Life Care Hospital. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        (function() {
+            var STORAGE_KEY = "documents_local";
+            var selectedFiles = [];
+            var dropZone = document.getElementById("dropZone");
+            var fileInput = document.getElementById("fileInput");
+            var fileList = document.getElementById("fileList");
+            var statusMsg = document.getElementById("statusMsg");
+            var submitBtn = document.getElementById("submitBtn");
+            var progressWrap = document.getElementById("progressWrap");
+            var progressFill = document.getElementById("progressFill");
+            var progressText = document.getElementById("progressText");
+
+            dropZone.addEventListener("click", function() {
+                fileInput.click();
+            });
+            ["dragenter", "dragover"].forEach(function(evt) {
+                dropZone.addEventListener(evt, function(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    dropZone.classList.add("dragover");
+                });
+            });
+            ["dragleave", "drop"].forEach(function(evt) {
+                dropZone.addEventListener(evt, function(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    dropZone.classList.remove("dragover");
+                });
+            });
+            dropZone.addEventListener("drop", function(e) {
+                addFiles(Array.from(e.dataTransfer.files || []));
+            });
+            fileInput.addEventListener("change", function() {
+                addFiles(Array.from(fileInput.files || []));
+                fileInput.value = "";
+            });
+
+            function addFiles(files) {
+                var maxSize = 10 * 1024 * 1024;
+                var allowedExt = ["pdf", "jpg", "jpeg", "png", "doc", "docx"];
+                files.forEach(function(file) {
+                    if (file.size > maxSize) {
+                        showStatus('File "' + file.name + '" exceeds 10 MB limit.', "error");
+                        return;
+                    }
+                    var ext = (file.name.split(".").pop() || "").toLowerCase();
+                    if (allowedExt.indexOf(ext) === -1) {
+                        showStatus("File type not allowed: " + file.name, "error");
+                        return;
+                    }
+                    if (selectedFiles.some(function(f) {
+                            return f.name === file.name && f.size === file.size;
+                        })) return;
+                    selectedFiles.push(file);
+                });
+                renderFileList();
+            }
+
+            function renderFileList() {
+                if (!selectedFiles.length) {
+                    fileList.innerHTML = "";
+                    return;
+                }
+                fileList.innerHTML = selectedFiles
+                    .map(function(f, i) {
+                        return (
+                            '<div class="file-item"><span class="name">' +
+                            escapeText(f.name) +
+                            '</span><span class="size">' +
+                            formatSize(f.size) +
+                            '</span><button type="button" class="remove" data-i="' +
+                            i +
+                            '">✕</button></div>'
+                        );
+                    })
+                    .join("");
+                fileList.querySelectorAll(".remove").forEach(function(btn) {
+                    btn.addEventListener("click", function() {
+                        selectedFiles.splice(parseInt(btn.getAttribute("data-i"), 10), 1);
+                        renderFileList();
+                    });
+                });
+            }
+
+            function formatSize(bytes) {
+                if (bytes < 1024) return bytes + " B";
+                if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(1) + " KB";
+                return (bytes / (1024 * 1024)).toFixed(1) + " MB";
+            }
+
+            function escapeText(str) {
+                var d = document.createElement("div");
+                d.textContent = str;
+                return d.innerHTML;
+            }
+
+            function showStatus(msg, type) {
+                statusMsg.textContent = msg;
+                statusMsg.className = "status " + type;
+                statusMsg.style.display = "block";
+            }
+
+            function setProgress(pct) {
+                progressWrap.classList.add("visible");
+                progressFill.style.width = pct + "%";
+                progressText.textContent = "Uploading… " + pct + "%";
+            }
+
+            function hideProgress() {
+                progressWrap.classList.remove("visible");
+                progressFill.style.width = "0%";
+            }
+
+            function fileToBase64(file) {
+                return new Promise(function(resolve, reject) {
+                    var reader = new FileReader();
+                    reader.onload = function() {
+                        resolve({
+                            name: file.name,
+                            size: file.size,
+                            type: file.type || "application/octet-stream",
+                            dataUrl: reader.result
+                        });
+                    };
+                    reader.onerror = reject;
+                    reader.readAsDataURL(file);
+                });
+            }
+
+            function saveDocument(entry) {
+                var list = [];
+                try {
+                    list = JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]");
+                    if (!Array.isArray(list)) list = [];
+                } catch (e) {
+                    list = [];
+                }
+                list.unshift(entry);
+                localStorage.setItem(STORAGE_KEY, JSON.stringify(list.slice(0, 100)));
+                return entry.id;
+            }
+
+            document.getElementById("uploadForm").addEventListener("submit", async function(e) {
+                e.preventDefault();
+                statusMsg.className = "status";
+                statusMsg.style.display = "none";
+
+                if (!selectedFiles.length) {
+                    showStatus("Please select at least one document to upload.", "error");
+                    return;
+                }
+
+                var name = document.getElementById("patientName").value.trim();
+                var phone = document.getElementById("phone").value.trim();
+                var docType = document.getElementById("docType").value;
+                if (!name || !phone || !docType) {
+                    showStatus("Please fill all required fields.", "error");
+                    return;
+                }
+
+                submitBtn.disabled = true;
+                submitBtn.textContent = "Uploading…";
+                setProgress(5);
+
+                try {
+                    var filesMeta = [];
+                    var total = selectedFiles.length;
+                    for (var i = 0; i < total; i++) {
+                        var meta = await fileToBase64(selectedFiles[i]);
+                        // Store name/size/type only in list index; keep dataUrl for small files only
+                        if (meta.size > 1.5 * 1024 * 1024) {
+                            filesMeta.push({
+                                name: meta.name,
+                                size: meta.size,
+                                type: meta.type,
+                                dataUrl: null,
+                                note: "Large file — metadata only (open on same device after upload)"
+                            });
+                        } else {
+                            filesMeta.push(meta);
+                        }
+                        setProgress(Math.round(((i + 1) / total) * 90));
+                    }
+
+                    var id = "DOC-" + Date.now();
+                    var entry = {
+                        id: id,
+                        patientName: name,
+                        patientId: document.getElementById("patientId").value.trim(),
+                        phone: phone,
+                        email: document.getElementById("email").value.trim(),
+                        docType: docType,
+                        notes: document.getElementById("notes").value.trim(),
+                        files: filesMeta,
+                        status: "pending",
+                        createdAt: new Date().toISOString()
+                    };
+
+                    saveDocument(entry);
+                    setProgress(100);
+                    showStatus(
+                        "✅ Uploaded successfully. Reference: " + id + ". Our team will review shortly.",
+                        "success"
+                    );
+                    document.getElementById("uploadForm").reset();
+                    selectedFiles = [];
+                    renderFileList();
+                } catch (err) {
+                    console.error(err);
+                    showStatus("Upload failed: " + (err.message || "Please try again."), "error");
+                } finally {
+                    submitBtn.disabled = false;
+                    submitBtn.textContent = "⬆️ Upload Documents";
+                    setTimeout(hideProgress, 600);
+                }
+            });
+        })();
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Contact | Life Care Hospital</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+    <script src="https://www.gstatic.com/firebasejs/10.14.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.14.0/firebase-firestore-compat.js"></script>
+    <link rel="stylesheet" href="styles.css" />
+    <script src="main.js"></script>
+</head>
+
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo"><span class="logo-icon"><IMg src="2.TIFT.png"></IMg></span><span class="logo-text">Life Care Hospital</span></a>
+            <button class="menu-toggle" onclick="toggleMenu()" aria-label="Toggle menu">☰</button>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="services.html">Services</a></li>
+                <li><a href="pharmacy.html">Pharmacy</a></li>
+                <li><a href="ambulance.html">Ambulance</a></li>
+                <li><a href="doctors.html ">Our Doctors</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="contact.html" class="active">Contact</a></li>
+                <li><a href="appointment.html" class="btn-book">Book Appointment</a></li>
+                <li><button class="theme-toggle" id="themeToggle" onclick="toggleTheme()" title="Toggle dark mode">🌙</button></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="page">
+        <h1 class="section-title">Contact Us</h1>
+        <p class="section-subtitle">We are here to help. Reach out anytime.</p>
+
+        <div class="grid grid-2" style="align-items: start;">
+            <div>
+                <div class="card" style="margin-bottom: 1.5rem;">
+                    <h3>📍 Address</h3>
+                    <p>123 Health Avenue, Medical District<br />City – 144306, India</p>
+                </div>
+                <div class="card" style="margin-bottom: 1.5rem;">
+                    <h3>📞 Phone</h3>
+                    <p>Reception: +91-94368-25431<br />Emergency: 108 / +91-78377-45429<br />Ambulance: +91-75310-97452</p>
+                </div>
+                <div class="card">
+                    <h3>✉️ Email</h3>
+                    <p>ramnish7171@gmail.com<br />sunamdeeps380@gmail.com</p>
+                </div>
+            </div>
+
+            <div class="card">
+                <h2 style="margin-bottom: 1rem;">Send us a Message</h2>
+                <form id="contactForm" class="form">
+                    <div class="form-group">
+                        <label>Full Name *</label>
+                        <input name="name" required placeholder="Your name" />
+                    </div>
+                    <div class="form-group">
+                        <label>Email *</label>
+                        <input type="email" name="email" required placeholder="you@example.com" />
+                    </div>
+                    <div class="form-group">
+                        <label>Phone</label>
+                        <input name="phone" placeholder="+91 XXXXX XXXXX" />
+                    </div>
+                    <div class="form-group">
+                        <label>Subject *</label>
+                        <input name="subject" required placeholder="How can we help?" />
+                    </div>
+                    <div class="form-group">
+                        <label>Message *</label>
+                        <textarea name="message" required placeholder="Write your message here..."></textarea>
+                    </div>
+                    <button type="submit">Send Message</button>
+                    <div class="status" style="display:none;"></div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <h3>🏥 Life Care Hospital</h3>
+                    <p>Providing compassionate, advanced healthcare services with a patient-first approach since 2005.</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="services.html">Services</a></li>
+                        <li><a href="pharmacy.html">Pharmacy</a></li>
+                        <li><a href="ambulance.html">Ambulance</a></li>
+                        <li><a href="appointment.html">Book Appointment</a></li>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Contact</h4>
+                    <p>123 Health Avenue, Medical District</p>
+                    <p>City – 144306, India</p>
+                    <p>Phone: +91-85448-53114</p>
+                    <p>Email: ramnish7171@gmail.com</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2023 Life Care Hospital. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+    <script src="main.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,113 @@
+/* Health Packages styles */
+
+.pkg-filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 2rem;
+}
+
+.pkg-filter {
+    padding: 0.5rem 1.15rem;
+    border-radius: 50px;
+    border: 1px solid var(--border);
+    background: var(--bg-card);
+    color: var(--text);
+    font-weight: 500;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.pkg-filter:hover,
+.pkg-filter.active {
+    background: var(--accent);
+    color: #fff;
+    border-color: var(--accent);
+}
+
+.pkg-card {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+    transition: var(--transition);
+}
+
+.pkg-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-lg);
+}
+
+.pkg-badge {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background: var(--accent);
+    color: #fff;
+    font-size: 0.75rem;
+    font-weight: 700;
+    padding: 0.25rem 0.7rem;
+    border-radius: 20px;
+}
+
+.pkg-icon {
+    font-size: 2rem;
+    margin-bottom: 0.75rem;
+}
+
+.pkg-card h3 {
+    font-size: 1.2rem;
+    margin-bottom: 0.35rem;
+}
+
+.pkg-price {
+    font-size: 1.6rem;
+    font-weight: 800;
+    color: var(--accent);
+    margin: 0.5rem 0;
+}
+
+.pkg-price span {
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--text-muted);
+}
+
+.pkg-features {
+    list-style: none;
+    margin: 1rem 0;
+    flex: 1;
+}
+
+.pkg-features li {
+    padding: 0.35rem 0;
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    display: flex;
+    align-items: flex-start;
+    gap: 0.4rem;
+}
+
+.pkg-features li::before {
+    content: "✓";
+    color: var(--accent);
+    font-weight: 700;
+    flex-shrink: 0;
+}
+
+.pkg-card .btn {
+    width: 100%;
+    margin-top: auto;
+}
+
+.pkg-card.hidden {
+    display: none;
+}
+
+@media (max-width: 640px) {
+    .pkg-filters {
+        justify-content: center;
+    }
+}

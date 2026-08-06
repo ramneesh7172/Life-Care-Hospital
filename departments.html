@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Departments | Life Care Hospital</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+    <script src="https://www.gstatic.com/firebasejs/10.14.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.14.0/firebase-firestore-compat.js"></script>
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="departments.css" />
+    <script src="main.js"></script>
+</head>
+
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <span class="logo-icon"><img src="2.TIFT.png" alt="Logo"></span>
+                <span class="logo-text">Life Care Hospital</span>
+            </a>
+            <button class="menu-toggle" onclick="toggleMenu()" aria-label="Toggle menu">☰</button>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="services.html">Services</a></li>
+                <!-- <li><a href="departments.html" class="active">Departments</a></li> -->
+                <a class="nav-link dropdown-toggle" href="departments.html" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+
+      departments          </a>
+                <ul class="dropdown-menu" style="background-color:  #0a4d68;">
+                    <li>
+                        <a class="dropdown-item" href="blog.html">Blog</a>
+                    </li>
+                    <li><a class="dropdown-item" href="empanelments.html">Empanelments</a></li>
+                    <li>
+                        <hr class="dropdown-divider">
+                    </li>
+                    <li>
+                        <a class="dropdown-item" href="events.html">Events</a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item" href="faq.html">FAQ</a>
+                    </li>
+                    <li><a class="dropdown-item" href="gallery.html">Gallery</a></li>
+                    <li>
+                        <hr class="dropdown-divider">
+                    </li>
+                    <li>
+                        <a class="dropdown-item" href="health-packages.html">Health-Packages</Health-Packages>
+                        </a>
+                    </li>
+                    <li>
+                        <hr class="dropdown-divider">
+                    </li>
+                </ul>
+                <li><a href="doctors.html">Our Doctors</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="contact.html">Contact</a></li>
+                <li><a href="appointment.html" class="btn-book">Book Appointment</a></li>
+                <li><button class="theme-toggle" id="themeToggle" onclick="toggleTheme()" title="Toggle dark mode">🌙</button></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="page">
+        <h1 class="section-title">Our Departments</h1>
+        <p class="section-subtitle">Specialized care across every major medical specialty</p>
+
+        <div class="dept-controls">
+            <input type="search" id="deptSearch" placeholder="Search departments..." aria-label="Search departments" />
+            <div class="dept-filters" id="deptFilters">
+                <button class="filter-btn active" data-filter="all">All</button>
+                <button class="filter-btn" data-filter="clinical">Clinical</button>
+                <button class="filter-btn" data-filter="surgical">Surgical</button>
+                <button class="filter-btn" data-filter="diagnostic">Diagnostic</button>
+                <button class="filter-btn" data-filter="support">Support</button>
+            </div>
+        </div>
+
+        <div class="grid grid-3" id="departmentsGrid">
+            <!-- Cards injected by departments.js -->
+        </div>
+
+        <div class="cta-box" style="margin-top: 2.5rem;">
+            <h3>Looking for a specialist?</h3>
+            <p>Book an appointment with the right department today.</p>
+            <a href="appointment.html" class="btn btn-primary">Book Appointment</a>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <h3>🏥 Life Care Hospital</h3>
+                    <p>Providing compassionate, advanced healthcare services with a patient-first approach since 2005.</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="services.html">Services</a></li>
+                        <li><a href="departments.html">Departments</a></li>
+                        <li><a href="health-packages.html">Health Packages</a></li>
+                        <li><a href="appointment.html">Book Appointment</a></li>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Contact</h4>
+                    <p>123 Health Avenue, Medical District</p>
+                    <p>City – 144306, India</p>
+                    <p>Phone: +91-85448-53114</p>
+                    <p>Email: ramnish7171@gmail.com</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2023 Life Care Hospital. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="departments.js"></script>
+</body>
+
+</html>

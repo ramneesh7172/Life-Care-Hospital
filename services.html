@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Services | Life Care Hospital</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+    <script src="https://www.gstatic.com/firebasejs/10.14.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.14.0/firebase-firestore-compat.js"></script>
+    <link rel="stylesheet" href="styles.css" />
+    <script src="main.js"></script>
+</head>
+
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo"><span class="logo-icon"><IMg src="2.TIFT.png"></IMg>
+
+
+
+                </span><span class="logo-text">Life Care Hospital</span></a>
+            <button class="menu-toggle" onclick="toggleMenu()" aria-label="Toggle menu">☰</button>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="services.html" class="active">Services</a></li>
+                <li><a href="pharmacy.html">Pharmacy</a></li>
+                <li><a href="ambulance.html">Ambulance</a></li>
+                <li><a href="doctors.html ">Our Doctors</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="contact.html">Contact</a></li>
+                <li><a href="appointment.html" class="btn-book">Book Appointment</a></li>
+                <li><button class="theme-toggle" id="themeToggle" onclick="toggleTheme()" title="Toggle dark mode">🌙</button></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="page">
+        <h1 class="section-title">Our Medical Services</h1>
+        <p class="section-subtitle">Comprehensive multi-specialty care delivered by experienced professionals</p>
+
+        <div class="grid grid-3">
+            <div class="card service-card">
+                <div class="service-icon">🚨</div>
+                <h3>Emergency & Trauma</h3>
+                <p>24/7 Level-1 trauma center with dedicated ICU, ventilator support and rapid response team.</p>
+            </div>
+            <div class="card service-card">
+                <div class="service-icon">❤️</div>
+                <h3>Cardiology</h3>
+                <p>Cath lab, angioplasty, pacemaker implantation, ECG, Echo and comprehensive heart care.</p>
+            </div>
+            <div class="card service-card">
+                <div class="service-icon">🧠</div>
+                <h3>Neurology & Neurosurgery</h3>
+                <p>Stroke unit, brain & spine surgery, epilepsy care and advanced neuroimaging.</p>
+            </div>
+            <div class="card service-card">
+                <div class="service-icon">🦴</div>
+                <h3>Orthopedics</h3>
+                <p>Joint replacement, sports injury, trauma surgery, arthroscopy and rehabilitation.</p>
+            </div>
+            <div class="card service-card">
+                <div class="service-icon">👶</div>
+                <h3>Pediatrics & Neonatology</h3>
+                <p>NICU, PICU, child specialists, vaccination and developmental care.</p>
+            </div>
+            <div class="card service-card">
+                <div class="service-icon">👩</div>
+                <h3>Gynecology & Obstetrics</h3>
+                <p>Maternity, high-risk pregnancy, fertility services and laparoscopic surgery.</p>
+            </div>
+            <div class="card service-card">
+                <div class="service-icon">🔪</div>
+                <h3>General & Laparoscopic Surgery</h3>
+                <p>Minimally invasive surgery, hernia, gallbladder, appendix and advanced procedures.</p>
+            </div>
+            <div class="card service-card">
+                <div class="service-icon">🎗️</div>
+                <h3>Oncology</h3>
+                <p>Chemotherapy, radiation planning support, cancer screening and palliative care.</p>
+            </div>
+            <div class="card service-card">
+                <div class="service-icon">🩸</div>
+                <h3>Dialysis & Nephrology</h3>
+                <p>Advanced hemodialysis unit with experienced nephrologists.</p>
+            </div>
+            <div class="card service-card">
+                <div class="service-icon">📷</div>
+                <h3>Diagnostic Imaging</h3>
+                <p>MRI, CT Scan, Digital X-Ray, Ultrasound, Mammography and more.</p>
+            </div>
+            <div class="card service-card">
+                <div class="service-icon">🔬</div>
+                <h3>Pathology Laboratory</h3>
+                <p>NABL-accredited full laboratory services with rapid reporting.</p>
+            </div>
+            <div class="card service-card">
+                <div class="service-icon">🏃</div>
+                <h3>Physiotherapy & Rehab</h3>
+                <p>Pain management, post-surgical rehab, sports physiotherapy and mobility training.</p>
+            </div>
+        </div>
+
+        <div class="cta-box">
+            <h3>Need a specific department?</h3>
+            <p>Book an appointment with the right specialist today.</p>
+            <a href="appointment.html" class="btn-book">Book Appointment</a>
+        </div>
+    </div>div>
+    </div>
+    <script src="main.js"></script>
